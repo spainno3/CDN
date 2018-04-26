@@ -1,7 +1,9 @@
 <?php require_once ('libs/config.php'); ?>
-<?php if(!isset($_SESSION['userId'])){
+<?php
+if (!isset($_SESSION['userId'])) {
     header('Location: login.php');
-} ?>
+}
+?>
 <?php require_once ('views/header.php'); ?>
 <?php require_once ('views/nav.php'); ?>
 
@@ -41,13 +43,14 @@
                     . " ('" . $_POST['name'] . "', '" . $_POST['email'] . "', '" . $_POST['password'] . "')";
             if (db_execute($sql)) {
                 echo '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Success: '.$sql.'</strong>
+                                    <strong>Success: ' . $sql . '</strong>
                                     </div>';
             } else {
                 echo "<div class='alert alert-danger alert-dismissible'><strong>ERROR: Could not able to execute $sql. " . mysqli_error($link) . '</strong></div>';
             }
             // Close connection
             db_close();
+            header("Refresh:3; url=index.php");
         }
         ?>
     </div>

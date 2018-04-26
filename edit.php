@@ -1,12 +1,14 @@
 <?php require_once ('libs/config.php'); ?>
-<?php if(!isset($_SESSION['userId'])){
+<?php
+if (!isset($_SESSION['userId'])) {
     header('Location: login.php');
-} ?>
+}
+?>
 <?php require_once ('views/header.php'); ?>
 <?php require_once ('views/nav.php'); ?>
 <?php
-    $sql = "SELECT * FROM persons WHERE id = " . $_GET['id'] . "";
-    $result = db_get_row($sql);
+$sql = "SELECT * FROM persons WHERE id = " . $_GET['id'] . "";
+$result = db_get_row($sql);
 ?>
 <div class="container" style="margin-top:30px">
     <div class="col-sm-12">
@@ -40,10 +42,10 @@
         <?php
         if (isset($_POST['form_click'])) {
             // Attempt update query execution
-            $sql = "UPDATE persons set name='". $_POST['name'] ."', email='". $_POST['email'] ."', password='". $_POST['password'] ."' WHERE id='". $_GET['id']."'";
+            $sql = "UPDATE persons set name='" . $_POST['name'] . "', email='" . $_POST['email'] . "', password='" . $_POST['password'] . "' WHERE id='" . $_GET['id'] . "'";
             if (db_execute($sql)) {
                 echo '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Success: '.$sql.'</strong>
+                                    <strong>Success: ' . $sql . '</strong>
                                     </div>';
             } else {
                 echo "<div class='alert alert-danger alert-dismissible'><strong>ERROR: Could not able to execute $sql. " . mysqli_error($link) . '</strong></div>';

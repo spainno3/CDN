@@ -1,7 +1,9 @@
 <?php require_once ('libs/config.php'); ?>
-<?php if(isset($_SESSION['userId'])){
+<?php
+if (isset($_SESSION['userId'])) {
     header('Location: index.php');
-} ?>
+}
+?>
 <?php require_once ('views/header.php'); ?>
 <?php require_once ('views/nav.php'); ?>
 
@@ -32,36 +34,36 @@
                 </div>
                 <div class="form-group">        
                     <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" name="form_click_error" class="btn btn-primary">Login</button>
+                        <button type="submit" name="form_click_error" class="btn btn-primary">Login</button>
                     </div>
                 </div>
             </form>
-            <?php 
-                if (isset($_POST['form_click_error'])) {
-                    $email = $_POST['email_error'];
-                    $password = $_POST['password_error'];
-                    $sql = 'SELECT * FROM persons WHERE email ="' . $email . '" AND password ="' . $password . '"';
-                    if ($result = db_execute($sql)) {
-                        if (mysqli_num_rows($result) > 0) {
-                            $row=mysqli_fetch_array($result);
-                            // session_regenerate_id();
-                            $_SESSION['userId'] = $row['id'];
-                            $_SESSION['name'] = $row['name'];
-                            echo '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <strong>Login thành công:  '. $sql .'</strong>
+            <?php
+            if (isset($_POST['form_click_error'])) {
+                $email = $_POST['email_error'];
+                $password = $_POST['password_error'];
+                $sql = 'SELECT * FROM persons WHERE email ="' . $email . '" AND password ="' . $password . '"';
+                if ($result = db_execute($sql)) {
+                    if (mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_array($result);
+                        // session_regenerate_id();
+                        $_SESSION['userId'] = $row['id'];
+                        $_SESSION['name'] = $row['name'];
+                        echo '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <strong>Login thành công:  ' . $sql . '</strong>
                                         </div>';
-                        } else {
-                            echo '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                        <strong>Sai: '. $sql .'</strong>
-                                        </div>';
-                        }
                     } else {
-                        echo "ERROR: Could not able to execute $sql. ";
+                        echo '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <strong>Sai: ' . $sql . '</strong>
+                                        </div>';
                     }
-                    // Close connection
-                    db_close();
-                    header("Refresh:3; url=index.php");
+                } else {
+                    echo "ERROR: Could not able to execute $sql. ";
                 }
+                // Close connection
+                db_close();
+                header("Refresh:3; url=index.php");
+            }
             ?>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -80,27 +82,27 @@
                 </div>
                 <div class="form-group">        
                     <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" name="form_click_success" class="btn btn-primary">Login</button>
+                        <button type="submit" name="form_click_success" class="btn btn-primary">Login</button>
                     </div>
                 </div>
             </form>    
-            <?php 
+            <?php
             if (isset($_POST['form_click_success'])) {
                 $email = $_POST['email'];
                 $password = $_POST['password'];
-                $sql = 'SELECT * FROM persons WHERE email ="' . addslashes($email) . '" AND password ="' .  addslashes($password) . '"';
+                $sql = 'SELECT * FROM persons WHERE email ="' . addslashes($email) . '" AND password ="' . addslashes($password) . '"';
                 if ($result = db_execute($sql)) {
                     if (mysqli_num_rows($result) > 0) {
-                        $row=mysqli_fetch_array($result);
+                        $row = mysqli_fetch_array($result);
                         // session_regenerate_id();
                         $_SESSION['userId'] = $row['id'];
                         $_SESSION['name'] = $row['name'];
                         echo '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Login thành công:  '. $sql .'</strong>
+                                    <strong>Login thành công:  ' . $sql . '</strong>
                                     </div>';
                     } else {
                         echo '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>
-                                    <strong>Sai: '. $sql .'</strong>
+                                    <strong>Sai: ' . $sql . '</strong>
                                     </div>';
                     }
                 } else {
@@ -108,6 +110,7 @@
                 }
                 // Close connection
                 db_close();
+                header("Refresh:3; url=index.php");
             }
             ?>
         </div>
@@ -145,8 +148,6 @@
             }
 
         }
-
-
         ?>
     </div>
 </div>

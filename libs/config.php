@@ -1,4 +1,5 @@
 <?php
+
 require_once ('libs/session.php');
 $conn = null;
 
@@ -7,67 +8,67 @@ $conn = null;
  * @param null
  * @return db connect 
  */
-function db_connect(){
+function db_connect() {
     global $conn;
-    if (!$conn){
-        $conn = mysqli_connect("localhost", "root", "", "my_db"); 
+    if (!$conn) {
+        $conn = mysqli_connect("localhost", "root", "123456", "my_db");
         if ($conn === false) {
             die("ERROR: Could not connect. " . mysqli_connect_error());
         }
         mysqli_set_charset($conn, 'UTF-8');
     }
 }
- 
+
 /**
  * Function close connect
  * @param null
  * @return close connect 
  */
-function db_close(){
+function db_close() {
     global $conn;
-    if ($conn){
+    if ($conn) {
         mysqli_close($conn);
     }
 }
- 
+
 /**
  * Function get list data
  * @param string $sql
  * @return array $data 
  */
-function db_get_list($sql){
+function db_get_list($sql) {
     db_connect();
     global $conn;
-    $data  = array();
+    $data = array();
     $result = mysqli_query($conn, $sql);
-    while ($row = mysqli_fetch_assoc($result)){
+    while ($row = mysqli_fetch_assoc($result)) {
         $data[] = $row;
     }
     return $data;
 }
- 
+
 /**
  * Function get detail data
  * @param string $sql
  * @return object $data 
  */
-function db_get_row($sql){
+function db_get_row($sql) {
     db_connect();
     global $conn;
     $result = mysqli_query($conn, $sql);
     $row = array();
-    if (mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-    }    
+    }
     return $row;
 }
- 
+
 /**
  * Function execute sql
  * @param string $sql
  * @return execute sql
  */
-function db_execute($sql){
+function db_execute($sql) {
     db_connect();
     global $conn;
     return mysqli_query($conn, $sql);
@@ -76,7 +77,7 @@ function db_execute($sql){
 /**
  * Function created db
  */
-function db_createTables(){
+function db_createTables() {
     $sqlPersons = "CREATE TABLE `persons` (
         `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
