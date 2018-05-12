@@ -4,7 +4,7 @@ This repository contains the source code of demo security JVB (PHP)
 
 ## Installation
 
-1. git clone https://github.com/spainno3/CDN.git
+1. git clone https://github.com/spainno3/seminar_security.git
 
 2. Edit config db in /libs/config
 
